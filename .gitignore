@@ -1,0 +1,5 @@
+# Jetbrains
+.idea
+
+# Configuration file
+*.ini
