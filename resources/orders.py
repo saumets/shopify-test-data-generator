@@ -5,6 +5,7 @@ import config
 
 from faker import Factory
 
+
 class Orders:
 
     def __init__(self, limit_sample_size):
@@ -23,7 +24,7 @@ class Orders:
             print("Generating Order: " + str(counter))
             new_order = shopify.Order()
             new_order.customer = dict(first_name=fake.first_name(), last_name=fake.last_name())
-            new_order.line_items = self.line_items_generate(products)
+            new_order.line_items = self.line_items_generate()
 
             success = new_order.save()
 
@@ -33,8 +34,7 @@ class Orders:
 
         return
 
-
-    def line_items_generate(self, products):
+    def line_items_generate(self):
         settings = config.settings['orders']
         line_items = []
 
@@ -42,11 +42,10 @@ class Orders:
         sample_size = random.randint(1, int(settings['MAX_LINE_ITEMS']))
 
         # get a random # of products (aka line_items) for this purchase.
-        products = random.sample(products, sample_size)
+        products = random.sample(self.products, sample_size)
         print("Total Random Products Grabbed: {}\n".format(len(products)))
 
         for product in products:
-
             if len(product.variants) < int(settings['MAX_VARIANTS']):
                 variants = product.variants
             else:
