@@ -13,14 +13,20 @@ __author__ = 'paulsaumets'
 def run():
 
     parser = argparse.ArgumentParser(prog='sdg', description='Auto-generate Shopify data for application testing.')
-    subparsers = parser.add_subparsers(help='sub-command help', dest='sub_command')
+    parser.add_argument('--version', action='version', version='%(prog)s 0.1')
 
+    #parser.add_argument('resource', choices=['customers','orders','products'], help="Resource CRUD interface")
+
+
+    subparsers = parser.add_subparsers()
+    parser_orders = subparsers.add_parser('orders', help='generate order data')
     parser_customers = subparsers.add_parser('customers', help='generate customer data')
     parser_products = subparsers.add_parser('products', help="generate product data")
 
-    parser_orders = subparsers.add_parser('orders', help='generate order data')
-    parser_orders.add_argument('N', type=int,help='number of orders to generate')
-    #parser_orders.set_defaults(func=resources.orders.generate)
+    order_subparser = parser_orders.add_subparsers()
+    order_create_subparser = order_subparser.add_parser('create', help="create orders")
+    order_delete_subparser = order_subparser.add_parser('delete', help="delete orders")
+
 
     args = parser.parse_args()
 
