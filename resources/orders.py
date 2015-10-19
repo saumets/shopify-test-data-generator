@@ -7,14 +7,13 @@ from faker import Factory
 
 
 class Orders:
-
     def __init__(self, limit_sample_size):
 
         self.products = shopify.Product.find(limit=limit_sample_size)
 
         return
 
-    def generate(self, number_products):
+    def create(self, number_orders):
 
         # these lists will be added to a data file after creation
         orders_created = []
@@ -25,12 +24,12 @@ class Orders:
         # create our factory for generating fake customer names
         fake = Factory.create('en_CA')
 
-        for counter in range(number_products):
+        for counter in range(number_orders):
 
             print("Generating Order: " + str(counter))
             new_order = shopify.Order()
             new_order.customer = dict(first_name=fake.first_name(), last_name=fake.last_name())
-            new_order.line_items = self.line_items_generate()
+            new_order.line_items = self.line_items_create()
 
             success = new_order.save()
 
@@ -52,7 +51,7 @@ class Orders:
 
         return
 
-    def line_items_generate(self):
+    def line_items_create(self):
         settings = config.settings['orders']
         line_items = []
 
@@ -78,3 +77,26 @@ class Orders:
                 )
 
         return line_items
+
+    def delete_orders(self, orders=None):
+
+        if orders is None:
+            # delete all orders
+            with open('sdg-orders.csv') as order_file:
+                orders_delete = order_file.readlines()
+
+            for order_number in orders_delete:
+
+                try:
+                    print("Finding order #: " + order_number)
+                    order = shopify.Order.find(int(order_number))
+                    print("Attempting to cancel order #: {}".format(order_number),end='')
+                    order.cancel()
+                    print("Attempting to delete order #: {}".format(order_number),end='')
+                    order.destroy()
+                    print("Order deleted.\n")
+                    # shopify.ShopifyResource.clear_session()
+                except:
+                    print("Order #: {} not found.".format(order_number))
+
+        return
