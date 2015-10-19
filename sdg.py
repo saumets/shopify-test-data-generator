@@ -27,8 +27,7 @@ def run():
     order_create_subparser = order_subparser.add_parser('create', help="create orders")
     order_delete_subparser = order_subparser.add_parser('delete', help="delete orders")
 
-    #orders_create_cmd_subparser = order_create_subparser.add_subparsers()
-    #orders_create_cmd_subparser.add_argument('N')
+    # order secondary_command arguments
     order_create_subparser.add_argument('N', type=int, help='number of orders to create (integer)')
 
     args = parser.parse_args()
@@ -37,8 +36,10 @@ def run():
         orders = resources.Orders(250)
 
         if args.secondary_command == "create":
-            orders.generate(args.N)
+            orders.create(args.N)
 
+        if args.secondary_command == "delete":
+            orders.delete_orders()
 
     print("Process Completed.\n")
     return
