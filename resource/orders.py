@@ -88,14 +88,10 @@ class Orders(object):
             for order_number in orders_delete:
 
                 try:
-                    print("Finding order #: {0}".format(order_number))
                     order = shopify.Order.find(int(order_number))
-                    print("Attempting to cancel order #: {0}".format(order_number))
                     order.cancel()
-                    print("Order #{0} cancelled.".format(order_number))
-                    print("Attempting to delete order #: {0}".format(order_number))
                     order.destroy()
-                    print("[DELETED] Order #{0}\n".format(order_number))
+                    print("[DELETED] Order #{0}".format(order_number))
                 except ResourceNotFound:
                     print("[WARNING] Order #{0} not found.".format(order_number))
 
