@@ -2,21 +2,20 @@
 
 import sys
 import argparse
-#import configparser
-
-#import shopify
-#import config
 import resource
 
 __author__ = 'paulsaumets'
 
 def run():
+    # make sure at least one argument was passed before we jump into argparse
+    if not len(sys.argv) > 1:
+        print("usage: sdg [-h] [--version] {orders,customers,products} ...")
+        return
 
     parser = argparse.ArgumentParser(prog='sdg', description='Auto-generate Shopify data for application testing.')
     parser.add_argument('--version', action='version', version='%(prog)s 0.1')
 
     #parser.add_argument('resource', choices=['customers','orders','products'], help="Resource CRUD interface")
-
 
     subparsers = parser.add_subparsers(dest='primary_command')
     parser_orders = subparsers.add_parser('orders', help='generate order data')
@@ -27,8 +26,15 @@ def run():
     order_create_subparser = order_subparser.add_parser('create', help="create orders")
     order_delete_subparser = order_subparser.add_parser('delete', help="delete orders")
 
-    # order secondary_command arguments
+    customer_subparser = parser_customers.add_subparsers(dest='secondary_command')
+    customer_create_subparser = customer_subparser.add_parser('create', help="create customers")
+    customer_delete_subparser = customer_subparser.add_parser('delete', help="delete customers")
+
+    # orders secondary_command arguments
     order_create_subparser.add_argument('N', type=int, help='number of orders to create (integer)')
+
+    # customers secondary_command arguments
+    customer_create_subparser.add_argument('N', type=int, help='number of customers to create (integer')
 
     args = parser.parse_args()
 
@@ -43,6 +49,12 @@ def run():
 
     if args.primary_command == "customers":
         customers = resource.Customers()
+
+        if args.secondary_command == "create":
+            customers.create(args.N)
+
+        if args.secondary_command == "delete":
+            customers.delete()
 
     print("Process Completed.\n")
     return
