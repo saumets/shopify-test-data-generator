@@ -1,10 +1,11 @@
 import random
+
 import shopify
+from pyactiveresource.connection import ResourceNotFound
 
 import config
-
 from resource.customers import Customers
-from pyactiveresource.connection import ResourceNotFound
+
 
 class Orders(object):
     def __init__(self, limit_sample_size=250):
