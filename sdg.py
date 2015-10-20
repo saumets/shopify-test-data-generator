@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+
 import resource
 
 __author__ = 'paulsaumets'
@@ -34,7 +35,7 @@ def run():
     order_create_subparser.add_argument('N', type=int, help='number of orders to create (integer)')
 
     # customers secondary_command arguments
-    customer_create_subparser.add_argument('N', type=int, help='number of customers to create (integer')
+    customer_create_subparser.add_argument('N', type=int, help='number of customers to create (integer)')
 
     args = parser.parse_args()
 
