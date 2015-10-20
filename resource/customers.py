@@ -1,9 +1,9 @@
 import shopify
+from faker import Factory
+from pyactiveresource.connection import ResourceNotFound
+
 import config
 
-from faker import Factory
-
-from pyactiveresource.connection import ResourceNotFound
 
 class Customers(object):
     def __init__(self):
@@ -37,8 +37,10 @@ class Customers(object):
     @staticmethod
     def generate_data():
 
+        settings = config.settings['customers']
+
         # We're forcing US locale since it contains the most complete providers for the Faker package.
-        fake = Factory.create('en_US')
+        fake = Factory.create(settings['LOCALE'])
 
         first_name = fake.first_name()
         last_name = fake.last_name()
