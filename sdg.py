@@ -6,7 +6,7 @@ import argparse
 
 #import shopify
 #import config
-import resources
+import resource
 
 __author__ = 'paulsaumets'
 
@@ -33,13 +33,16 @@ def run():
     args = parser.parse_args()
 
     if args.primary_command == "orders":
-        orders = resources.Orders(250)
+        orders = resource.Orders(limit_sample_size=250)
 
         if args.secondary_command == "create":
             orders.create(args.N)
 
         if args.secondary_command == "delete":
-            orders.delete_orders()
+            orders.delete()
+
+    if args.primary_command == "customers":
+        customers = resource.Customers()
 
     print("Process Completed.\n")
     return

@@ -6,7 +6,7 @@ import config
 from faker import Factory
 
 
-class Orders:
+class Orders(object):
     def __init__(self, limit_sample_size=250):
 
         # retains the max product sample size from which to create orders
@@ -89,14 +89,14 @@ class Orders:
             for order_number in orders_delete:
 
                 try:
-                    print("Finding order #: " + order_number)
+                    print("Finding order #: {}".format(order_number))
                     order = shopify.Order.find(int(order_number))
                     print("Attempting to cancel order #: {}".format(order_number), end='')
                     order.cancel()
+                    print("Order #{} cancelled.".format(order_number))
                     print("Attempting to delete order #: {}".format(order_number), end='')
                     order.destroy()
-                    print("Order deleted.\n")
-                    # shopify.ShopifyResource.clear_session()
+                    print("Order #{} deleted.\n".format(order_number))
                 except:
                     print("Order #: {} not found.".format(order_number))
 

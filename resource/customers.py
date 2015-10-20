@@ -4,7 +4,7 @@ import config
 from faker import Factory
 
 
-class Customers:
+class Customers(object):
     def __init__(self):
         return
 

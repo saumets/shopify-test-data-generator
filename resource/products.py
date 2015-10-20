@@ -1,7 +1,7 @@
 import shopify
 
 
-class Products:
+class Products(object):
 
     def __init__(self):
         return
