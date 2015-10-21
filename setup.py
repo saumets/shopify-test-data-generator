@@ -13,14 +13,14 @@ setup(name='shopify test data generator',
       version='0.1',
       description='STDG is a Python package that automates generation of Shopify store test data.',
       long_description=DESCRIPTION,
-      entry_point={
-          'console_scripts': ['stdg=stdg.cli:command_line_run']
+      entry_points= {
+          'console_scripts': ['stdg = stdg.cli:command_line_run']
       },
-      url='https://github.com/skalfyfan/shopify-data-generator',
+      url='https://github.com/skalfyfan/shopify-test-data-generator',
       author='Paul Saumets',
       author_email='ps@everydaybloke.com',
       license='MIT',
-      packages=['sdg'],
+      packages=['stdg'],
       install_requires=[
           'ShopifyAPI',
           'fake-factory'
