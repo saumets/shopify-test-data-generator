@@ -2,7 +2,7 @@ import configparser
 import shopify
 
 settings = configparser.ConfigParser()
-settings.read('sdg.ini')
+settings.read('stdg.ini')
 
 store_settings = settings['shopify']
 shop_url = "https://%s:%s@%s.myshopify.com/admin" % (
