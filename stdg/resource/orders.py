@@ -1,10 +1,9 @@
 import random
-
 import shopify
 from pyactiveresource.connection import ResourceNotFound
 
-import config
-from resource.customers import Customers
+from stdg import config
+from stdg.resource.customers import Customers
 
 
 class Orders(object):
@@ -39,7 +38,7 @@ class Orders(object):
             if new_order.errors:
                 # something went wrong!
                 # TODO: we need to loop over our error messages and print them
-                #print(new_order.errors.full_messages())
+                # print(new_order.errors.full_messages())
                 return
 
         # Write our created data to file. This is required for simple deletion later using this same tool.

@@ -2,7 +2,7 @@ import shopify
 from faker import Factory
 from pyactiveresource.connection import ResourceNotFound
 
-import config
+from stdg import config
 
 
 class Customers(object):

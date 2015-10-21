@@ -3,7 +3,7 @@
 import sys
 import argparse
 
-import resource
+from stdg import resource
 
 __author__ = 'paulsaumets'
 
