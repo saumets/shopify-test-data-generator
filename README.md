@@ -1,1 +1,1 @@
-# shopify-data-generator
+# shopify-test-data-generator
