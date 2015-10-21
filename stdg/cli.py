@@ -11,10 +11,10 @@ __author__ = 'paulsaumets'
 def command_line_run():
     # make sure at least one argument was passed before we jump into argparse
     if not len(sys.argv) > 1:
-        print("usage: sdg [-h] [--version] {orders,customers,products} ...")
+        print("usage: stdg [-h] [--version] {orders,customers,products} ...")
         return
 
-    parser = argparse.ArgumentParser(prog='sdg', description='Automate generation of Shopify test data for application testing.')
+    parser = argparse.ArgumentParser(prog='shopify test data generator', description='Automate generation of Shopify test data for application testing.')
     parser.add_argument('--version', action='version', version='%(prog)s 0.1')
 
     subparsers = parser.add_subparsers(dest='primary_command')
