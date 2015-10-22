@@ -1,28 +1,28 @@
 Shopify Test Data Generator
 ---------------------------
 
-*STDG* is a Python package that automates the generation of test/fake data for any Shopify store. Are you developing
-a new feature, service, and/or plugin, but need some data in a store to actually help you with your testing? Then
-STDG may be for you! Save yourself the hassle of manually creating all that Shopify store data through the dashboard.
-You need STDG.
+*STDG* is a Python package that automates the generation of test/fake data for any Shopify store. Are you developing a new feature, service, and/or plugin, but need some data in a store to actually help you with your testing? Then
+STDG may be for you! Save yourself the hassle of manually creating all that Shopify store data through the dashboard. You need STDG.
 
 STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 
 ----
 
-**Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage
-only. This README file *may* be out of date at any time and further configuration may be required and/or necessary. 
+**Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage only. This README file *may* be out of date at any time and further configuration may be required and/or necessary. 
 
 ----
 
 Basic Setup
 -----------
 
-First get a python *virtualenv* up and running and clone the repo. Then:
+- First get a python *virtualenv* up and running and clone the repo. Then:
 
 .. code:: bash
 
     python setup.py develop
+    
+- Open and edit the provided *stdg-sample.ini* file and add your Shopify API credentials and optional settings.
+- Save your above edits as *stdg.ini*.
 
 Basic Usage
 -----------
