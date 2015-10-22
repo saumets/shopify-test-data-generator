@@ -32,7 +32,7 @@ class Orders(object):
                 # something went wrong!
                 # TODO: we need to loop over our error messages and print them
                 for message in new_order.errors.full_messages():
-                    print(message)
+                    print("[ERROR] {0}".format(message))
                 return
 
             orders_created.append(str(new_order.id))
@@ -52,8 +52,6 @@ class Orders(object):
     def generate_data(self):
 
         order = {
-            'test': True,
-            'financial_status': 'paid',
             'customer': Customers.generate_data(),
             'line_items': self.line_items_create()
         }
