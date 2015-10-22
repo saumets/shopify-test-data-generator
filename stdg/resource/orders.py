@@ -89,7 +89,7 @@ class Orders(object):
 
         if orders is None:
             # delete all orders
-            with open('sdg-orders.csv') as order_file:
+            with open('stdg-orders.csv') as order_file:
                 orders_delete = order_file.read().splitlines()
 
             for order_number in orders_delete:
