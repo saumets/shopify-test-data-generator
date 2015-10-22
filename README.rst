@@ -17,7 +17,7 @@ STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 Basic Setup
 -----------
 
-Again, please note that STDG has been developed using *Python 3.x* and has **not** been tested with Python 2.x. 
+Please note that STDG has been developed using *Python 3.x* and has **not** been tested with Python 2.x. 
 
 1. First get a python *virtualenv* up and running and clone the repo. Then:
 
