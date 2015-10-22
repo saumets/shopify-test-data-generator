@@ -8,5 +8,58 @@ You need STDG.
 
 STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 
+---
+
+**Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage only.
+
+---
+
+Basic Usage
+-----------
+
+First get a python *virtualenv* up and running and clone the repo. Then:
+
+.. code:: bash
+
+    python setup.py develop
+
+This should create a new command-line argument available in your virtualenv called *stdg*.
+
+Simple help:
+
+.. code:: bash
+
+    stdg -h
+
+Help on creating orders:
+
+.. code:: bash
+
+    stdg orders -h
+
+Create 3 orders:
+
+.. code:: bash
+
+    stdg orders create 3
+
+Create 2 customers:
+
+.. code:: bash
+
+    stdg customers create 2
+
+Delete all generated orders:
+
+.. code:: bash
+
+    stdg orders delete
+
+Delete all generated customers:
+
+.. code:: bash
+
+    stdg customers delete
+
 .. _ShopifyAPI: https://github.com/Shopify/shopify_python_api
 .. _Faker: https://github.com/joke2k/faker
