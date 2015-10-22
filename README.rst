@@ -8,13 +8,13 @@ You need STDG.
 
 STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 
----
+----
 
 **Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage only.
 
----
+----
 
-Basic Usage
+Basic Setup
 -----------
 
 First get a python *virtualenv* up and running and clone the repo. Then:
@@ -23,7 +23,8 @@ First get a python *virtualenv* up and running and clone the repo. Then:
 
     python setup.py develop
 
-This should create a new command-line argument available in your virtualenv called *stdg*.
+Basic Usage
+-----------
 
 Simple help:
 
