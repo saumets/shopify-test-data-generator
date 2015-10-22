@@ -6,8 +6,8 @@ STDG may be for you! Save yourself the hassle of manually creating all that Shop
 
 ::
 
-STDG is built and developed using *Python 3.4.x*
-STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
+    STDG is built and developed using *Python 3.4.x*
+    STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 
 ----
 
