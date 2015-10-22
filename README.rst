@@ -15,14 +15,14 @@ STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 Basic Setup
 -----------
 
-- First get a python *virtualenv* up and running and clone the repo. Then:
+1. First get a python *virtualenv* up and running and clone the repo. Then:
 
 .. code:: bash
 
     python setup.py develop
     
-- Open and edit the provided *stdg-sample.ini* file and add your Shopify API credentials and optional settings.
-- Save your above edits as *stdg.ini*.
+# Open and edit the provided *stdg-sample.ini* file and add your Shopify API credentials and optional settings.
+# Save your above edits as *stdg.ini*.
 
 Basic Usage
 -----------
