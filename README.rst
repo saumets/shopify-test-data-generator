@@ -21,8 +21,8 @@ Basic Setup
 
     python setup.py develop
     
-# Open and edit the provided *stdg-sample.ini* file and add your Shopify API credentials and optional settings.
-# Save your above edits as *stdg.ini*.
+2. Open and edit the provided *stdg-sample.ini* file and add your Shopify API credentials and optional settings.
+3. Save your above edits as *stdg.ini*.
 
 Basic Usage
 -----------
