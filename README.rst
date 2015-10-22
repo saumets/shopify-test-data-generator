@@ -10,7 +10,9 @@ STDG is dependent on the following packages: `ShopifyAPI`_, and `Faker`_
 
 ----
 
-**Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage only.
+**Note**: This package is currently in a sandbox state. While usable, presently it's restricted to command-line usage
+only. This README file *may* be out of date at any time and further configuration may be necessary. Again, this is
+currently in *sandbox* state.
 
 ----
 
