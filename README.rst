@@ -1,1 +1,2 @@
-# shopify-test-data-generator
+Shopify Test Data Generator
+---------------------------
