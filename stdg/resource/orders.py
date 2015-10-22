@@ -7,12 +7,58 @@ from stdg.resource.customers import Customers
 
 
 class Orders(object):
+
+    settings = config.settings['orders']
+
     def __init__(self, limit_sample_size=250):
 
         # retains the max product sample size from which to create orders
         self.products = shopify.Product.find(limit=limit_sample_size)
 
         return
+
+    # class methods
+
+    @classmethod
+    def generate_data(cls):
+
+        order = {
+            'customer': Customers.generate_data(),
+            'line_items': cls.line_items_create()
+        }
+
+        return order
+
+    @classmethod
+    def line_items_create(cls):
+
+        line_items = []
+
+        # how many different products can a single customer order?
+        sample_size = random.randint(1, int(cls.settings['MAX_LINE_ITEMS']))
+
+        # get a random # of products (aka line_items) for this purchase.
+        products = random.sample(self.products, sample_size)
+        print("Total Products Purchased In Order: {}\n".format(len(products)))
+
+        for product in products:
+            if len(product.variants) < int(cls.settings['MAX_VARIANTS']):
+                variants = product.variants
+            else:
+                # generate a random seed to how big our sample size should be
+                sample_size = random.randint(1, int(cls.settings['MAX_VARIANTS']))
+                variants = random.sample(product.variants, sample_size)
+
+            for variant in variants:
+                line_items.append(
+                    dict(id=product.id, variant_id=variant.id,
+                         quantity=random.randint(1, int(cls.settings['MAX_QUANTITY'])))
+                )
+
+        return line_items
+
+
+    # instance methods
 
     def create(self, number_orders):
 
@@ -47,43 +93,6 @@ class Orders(object):
             customers_file.write('\n'.join(customers_created) + '\n')
 
         return
-
-
-    def generate_data(self):
-
-        order = {
-            'customer': Customers.generate_data(),
-            'line_items': self.line_items_create()
-        }
-
-        return order
-
-    def line_items_create(self):
-        settings = config.settings['orders']
-        line_items = []
-
-        # how many different products can a single customer order?
-        sample_size = random.randint(1, int(settings['MAX_LINE_ITEMS']))
-
-        # get a random # of products (aka line_items) for this purchase.
-        products = random.sample(self.products, sample_size)
-        print("Total Products Purchased In Order: {}\n".format(len(products)))
-
-        for product in products:
-            if len(product.variants) < int(settings['MAX_VARIANTS']):
-                variants = product.variants
-            else:
-                # generate a random seed to how big our sample size should be
-                sample_size = random.randint(1, int(settings['MAX_VARIANTS']))
-                variants = random.sample(product.variants, sample_size)
-
-            for variant in variants:
-                line_items.append(
-                    dict(id=product.id, variant_id=variant.id,
-                         quantity=random.randint(1, int(settings['MAX_QUANTITY'])))
-                )
-
-        return line_items
 
     def delete(self, orders=None):
 

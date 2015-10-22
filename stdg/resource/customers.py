@@ -4,11 +4,45 @@ from pyactiveresource.connection import ResourceNotFound
 
 from stdg import config
 
-
 class Customers(object):
+
+    settings = config.settings['customers']
+
     def __init__(self):
 
         return
+
+    # class methods
+
+    @classmethod
+    def generate_data(cls):
+
+        # We're forcing US locale since it contains the most complete providers for the Faker package.
+        fake = Factory.create(cls.settings['LOCALE'])
+
+        first_name = fake.first_name()
+        last_name = fake.last_name()
+
+        customer = {
+            'first_name': first_name,
+            'last_name': last_name,
+            'addresses': [
+                {
+                    'address1': fake.street_address(),
+                    'city': fake.city(),
+                    'province': fake.state(),
+                    'phone': fake.phone_number(),
+                    'zip': fake.postcode(),
+                    'last_name': first_name,
+                    'first_name': last_name,
+                    'country': 'US'
+                }
+            ],
+        }
+
+        return customer
+
+    # instance methods
 
     def create(self, number_customers):
 
@@ -33,36 +67,6 @@ class Customers(object):
             customers_file.write('\n'.join(customers_created) + '\n')
 
         return
-
-    @staticmethod
-    def generate_data():
-
-        settings = config.settings['customers']
-
-        # We're forcing US locale since it contains the most complete providers for the Faker package.
-        fake = Factory.create(settings['LOCALE'])
-
-        first_name = fake.first_name()
-        last_name = fake.last_name()
-
-        customer = {
-            'first_name': first_name,
-            'last_name': last_name,
-            'addresses': [
-                {
-                    'address1': fake.street_address(),
-                    'city': fake.city(),
-                    'province': fake.state(),
-                    'phone': fake.phone_number(),
-                    'zip': fake.postcode(),
-                    'last_name': first_name,
-                    'first_name': last_name,
-                    'country': 'US'
-                }
-            ],
-        }
-
-        return customer
 
     def delete(self, customers=None):
 
