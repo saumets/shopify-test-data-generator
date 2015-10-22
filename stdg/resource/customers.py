@@ -29,7 +29,7 @@ class Customers(object):
 
             customers_created.append(str(new_customer.id))
 
-        with open('sdg-customers.csv', mode='a', encoding='utf-8') as customers_file:
+        with open('stdg-customers.csv', mode='a', encoding='utf-8') as customers_file:
             customers_file.write('\n'.join(customers_created) + '\n')
 
         return
@@ -68,7 +68,7 @@ class Customers(object):
 
         if customers is None:
             # delete all orders
-            with open('sdg-customers.csv') as customer_file:
+            with open('stdg-customers.csv') as customer_file:
                 customers_delete = customer_file.read().splitlines()
 
             for customer_id in customers_delete:
