@@ -9,9 +9,9 @@ from setuptools import setup
 cwd = os.path.abspath(os.path.dirname(__file__))
 DESCRIPTION = io.open(os.path.join(cwd, 'README.md'), encoding="utf-8").read()
 
-setup(name='shopify test data generator',
-      version='0.1',
-      description='STDG is a Python package that automates generation of Shopify store test data.',
+setup(name='stdg',
+      version='0.0.1',
+      description='STDG is a package that automates generation of Shopify store data for application testing purposes.',
       long_description=DESCRIPTION,
       entry_points= {
           'console_scripts': ['stdg = stdg.cli:command_line_run']
