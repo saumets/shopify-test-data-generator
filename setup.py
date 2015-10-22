@@ -7,7 +7,7 @@ import io
 from setuptools import setup
 
 cwd = os.path.abspath(os.path.dirname(__file__))
-DESCRIPTION = io.open(os.path.join(cwd, 'README.md'), encoding="utf-8").read()
+DESCRIPTION = io.open(os.path.join(cwd, 'README.rst'), encoding="utf-8").read()
 
 setup(name='stdg',
       version='0.0.1',
