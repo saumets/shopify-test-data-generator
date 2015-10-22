@@ -25,31 +25,40 @@ class Orders(object):
         for counter in range(number_orders):
 
             print("Generating Order: {0}".format(str(counter + 1)))
-            new_order = shopify.Order()
-            new_order.customer = Customers.generate_data()
-            new_order.line_items = self.line_items_create()
 
-            success = new_order.save()
-
-            if success:
-                orders_created.append(str(new_order.id))
-                customers_created.append(str(new_order.customer.id))
+            new_order = shopify.Order().create(self.generate_data())
 
             if new_order.errors:
                 # something went wrong!
                 # TODO: we need to loop over our error messages and print them
-                # print(new_order.errors.full_messages())
+                for message in new_order.errors.full_messages():
+                    print(message)
                 return
+
+            orders_created.append(str(new_order.id))
+            customers_created.append(str(new_order.customer.id))
 
         # Write our created data to file. This is required for simple deletion later using this same tool.
         # If these files do not exist, you will have to delete the data manually through the Shopify dashboard.
-        with open('sdg-orders.csv', mode='a', encoding='utf-8') as order_file:
+        with open('stdg-orders.csv', mode='a', encoding='utf-8') as order_file:
             order_file.write('\n'.join(orders_created) + '\n')
 
-        with open('sdg-customers.csv', mode='a', encoding='utf-8') as customers_file:
+        with open('stdg-customers.csv', mode='a', encoding='utf-8') as customers_file:
             customers_file.write('\n'.join(customers_created) + '\n')
 
         return
+
+
+    def generate_data(self):
+
+        order = {
+            'test': True,
+            'financial_status': 'paid',
+            'customer': Customers.generate_data(),
+            'line_items': self.line_items_create()
+        }
+
+        return order
 
     def line_items_create(self):
         settings = config.settings['orders']
