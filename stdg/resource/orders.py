@@ -1,5 +1,6 @@
 import random
 import shopify
+
 from pyactiveresource.connection import ResourceNotFound
 
 from stdg import config
@@ -19,40 +20,55 @@ class Orders(object):
 
     # class methods
 
-    @classmethod
-    def generate_data(cls):
+    def generate_data(self, cls):
+
+        customer = Customers()
+
+        customer_data = customer.generate_data()
 
         order = {
-            'customer': Customers.generate_data(),
-            'line_items': cls.line_items_create()
+            'customer': customer_data,
+            'shipping_address': {
+                'first_name': customer_data['first_name'],
+                'last_name': customer_data['last_name'],
+                'phone': customer_data['addresses'][0]['phone'],
+                'address1': customer_data['addresses'][0]['address1'],
+                'city': customer_data['addresses'][0]['city'],
+                'province_code': customer_data['addresses'][0]['province_code'],
+                'zip': customer_data['addresses'][0]['zip'],
+                'country': 'US'
+            },
+            'line_items': cls.line_items_create
         }
 
         return order
 
-    @classmethod
-    def line_items_create(cls):
+
+
+    def line_items_create(self):
 
         line_items = []
 
         # how many different products can a single customer order?
-        sample_size = random.randint(1, int(cls.settings['MAX_LINE_ITEMS']))
+        sample_size = random.randint(1, int(self.settings['MAX_LINE_ITEMS']))
 
         # get a random # of products (aka line_items) for this purchase.
         products = random.sample(self.products, sample_size)
         print("Total Products Purchased In Order: {}\n".format(len(products)))
 
         for product in products:
-            if len(product.variants) < int(cls.settings['MAX_VARIANTS']):
+            if len(product.variants) < int(self.settings['MAX_VARIANTS']):
                 variants = product.variants
             else:
                 # generate a random seed to how big our sample size should be
-                sample_size = random.randint(1, int(cls.settings['MAX_VARIANTS']))
+                sample_size = random.randint(1, int(self.settings['MAX_VARIANTS']))
                 variants = random.sample(product.variants, sample_size)
 
             for variant in variants:
                 line_items.append(
                     dict(id=product.id, variant_id=variant.id,
-                         quantity=random.randint(1, int(cls.settings['MAX_QUANTITY'])))
+                         quantity=random.randint(1, int(self.settings['MAX_QUANTITY'])),
+                         fulfillment_service=self.settings['FULFILLMENT_SERVICE'], fulfillment_status=self.settings['FULFILLMENT_STATUS'])
                 )
 
         return line_items
@@ -72,7 +88,7 @@ class Orders(object):
 
             print("Generating Order: {0}".format(str(counter + 1)))
 
-            new_order = shopify.Order().create(self.generate_data())
+            new_order = shopify.Order().create(self.generate_data(self))
 
             if new_order.errors:
                 # something went wrong!
