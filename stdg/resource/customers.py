@@ -2,26 +2,45 @@ import shopify
 from faker import Factory
 from pyactiveresource.connection import ResourceNotFound
 
+import pandas as pd
+
 from stdg import config
 
 class Customers(object):
 
     settings = config.settings['customers']
 
-    def __init__(self):
+    def __init__(self, locale="en_US"):
+
+        self.locale = locale
+
+        postal_data = pd.read_csv("zip-codes.txt")
+        postal_data.columns = ["postal_code", "lat", "long", "city", "state", "county", "unique"]
+
+        self.states = list(postal_data.state)
+        self.zips = list(postal_data.postal_code)
+
 
         return
 
     # class methods
 
-    @classmethod
-    def generate_data(cls):
+    def generate_data(self):
 
         # We're forcing US locale since it contains the most complete providers for the Faker package.
-        fake = Factory.create(cls.settings['LOCALE'])
+        fake = Factory.create(self.settings['LOCALE'])
 
         first_name = fake.first_name()
         last_name = fake.last_name()
+
+        state = fake.state_abbr()
+        # get a valid zip base on the chosen state
+
+        state_index = self.states.index(state)
+        postal_code = self.zips[state_index]
+
+        #print(state)
+        #print(postal_code)
 
         customer = {
             'first_name': first_name,
@@ -30,9 +49,9 @@ class Customers(object):
                 {
                     'address1': fake.street_address(),
                     'city': fake.city(),
-                    'province': fake.state(),
+                    'province_code': str(state),
                     'phone': fake.phone_number(),
-                    'zip': fake.postcode(),
+                    'zip': str(postal_code),
                     'last_name': first_name,
                     'first_name': last_name,
                     'country': 'US'
