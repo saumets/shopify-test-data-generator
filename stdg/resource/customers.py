@@ -2,8 +2,6 @@ import shopify
 from faker import Factory
 from pyactiveresource.connection import ResourceNotFound
 
-import pandas as pd
-
 from stdg import config
 
 class Customers(object):
@@ -13,13 +11,6 @@ class Customers(object):
     def __init__(self, locale="en_US"):
 
         self.locale = locale
-
-        postal_data = pd.read_csv("zip-codes.txt")
-        postal_data.columns = ["postal_code", "lat", "long", "city", "state", "county", "unique"]
-
-        self.states = list(postal_data.state)
-        self.zips = list(postal_data.postal_code)
-
 
         return
 
@@ -33,14 +24,10 @@ class Customers(object):
         first_name = fake.first_name()
         last_name = fake.last_name()
 
-        state = fake.state_abbr()
-        # get a valid zip base on the chosen state
+        # config.postal_data is a DataFrame object from the pandas library.
+        state_info = config.postal_data.sample(n=1)
 
-        state_index = self.states.index(state)
-        postal_code = self.zips[state_index]
-
-        #print(state)
-        #print(postal_code)
+        #print(state_info.iloc[0]['postal_code'])
 
         customer = {
             'first_name': first_name,
@@ -49,9 +36,9 @@ class Customers(object):
                 {
                     'address1': fake.street_address(),
                     'city': fake.city(),
-                    'province_code': str(state),
+                    'province_code': str(state_info.iloc[0]['state']),
                     'phone': fake.phone_number(),
-                    'zip': str(postal_code),
+                    'zip': str(state_info.iloc[0]['postal_code']),
                     'last_name': first_name,
                     'first_name': last_name,
                     'country': 'US'
