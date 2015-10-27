@@ -38,12 +38,10 @@ class Orders(object):
                 'zip': customer_data['addresses'][0]['zip'],
                 'country': 'US'
             },
-            'line_items': cls.line_items_create
+            'line_items': cls.line_items_create()
         }
 
         return order
-
-
 
     def line_items_create(self):
 
@@ -70,6 +68,8 @@ class Orders(object):
                          quantity=random.randint(1, int(self.settings['MAX_QUANTITY'])),
                          fulfillment_service=self.settings['FULFILLMENT_SERVICE'], fulfillment_status=self.settings['FULFILLMENT_STATUS'])
                 )
+
+
 
         return line_items
 
