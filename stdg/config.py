@@ -14,7 +14,7 @@ postal_data = pd.read_csv("zip-codes.txt", header=None, converters={0: lambda x:
 postal_data.columns = ["postal_code", "lat", "long", "city", "state", "county", "unique"]
 
 # Isolate the two columns we really care about.
-postal_data = postal_data[["state","postal_code"]]
+postal_data = postal_data[["state", "postal_code"]]
 
 # State abbreviations to remove. Shopify does not recognize these states.
 # From: US District, Territory, and Possession Abbreviations and Capitals
