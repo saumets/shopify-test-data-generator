@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# THIS FILE IS OLD AND SHOULD BE REMOVED.
+
 import sys
 import argparse
 
