@@ -4,8 +4,8 @@ from pyactiveresource.connection import ResourceNotFound
 
 from stdg import config
 
-class Customers(object):
 
+class Customers(object):
     settings = config.settings['customers']
 
     def __init__(self, locale="en_US"):
@@ -13,8 +13,6 @@ class Customers(object):
         self.locale = locale
 
         return
-
-    # class methods
 
     def generate_data(self):
 
@@ -26,8 +24,6 @@ class Customers(object):
 
         # config.postal_data is a DataFrame object from the pandas library.
         state_info = config.postal_data.sample(n=1)
-
-        #print(state_info.iloc[0]['postal_code'])
 
         customer = {
             'first_name': first_name,
@@ -56,13 +52,12 @@ class Customers(object):
 
         for counter in range(number_customers):
 
-            print("Generating Customer: {0}".format(str(counter+1)))
+            print("Generating Customer: {0}".format(str(counter + 1)))
 
             new_customer = shopify.Customer().create(self.generate_data())
 
             if new_customer.errors:
                 # something went wrong!
-                # TODO: we need to loop over our error messages and print them
                 for message in new_customer.errors.full_messages():
                     print(message)
                 return
@@ -89,7 +84,5 @@ class Customers(object):
                     print("[DELETED] Customer #{0}".format(customer_id))
                 except ResourceNotFound:
                     print("[WARNING]: Customer #{0} not found.".format(customer_id))
-                except:
-                    print("Customer #: {0} has existing orders maybe?".format(customer_id))
 
         return
