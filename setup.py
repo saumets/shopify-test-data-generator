@@ -13,7 +13,7 @@ setup(name='stdg',
       version='0.0.1',
       description='STDG is a package that automates generation of Shopify store data for application testing purposes.',
       long_description=DESCRIPTION,
-      entry_points= {
+      entry_points={
           'console_scripts': ['stdg = stdg.cli:command_line_run']
       },
       url='https://github.com/skalfyfan/shopify-test-data-generator',
