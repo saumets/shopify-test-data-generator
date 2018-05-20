@@ -23,7 +23,7 @@ setup(name='stdg',
       packages=['stdg'],
       install_requires=[
           'ShopifyAPI',
-          'fake-factory',
+          'Faker',
           'pandas'
       ],
       zip_safe=False)

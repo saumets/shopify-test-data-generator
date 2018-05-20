@@ -40,7 +40,6 @@ class Orders(object):
             },
             'line_items': cls.line_items_create()
         }
-
         return order
 
     def line_items_create(self):
@@ -66,7 +65,9 @@ class Orders(object):
                 line_items.append(
                     dict(id=product.id, variant_id=variant.id,
                          quantity=random.randint(1, int(self.settings['MAX_QUANTITY'])),
-                         fulfillment_service=self.settings['FULFILLMENT_SERVICE'], fulfillment_status=self.settings['FULFILLMENT_STATUS'])
+                         # fulfillment_service=self.settings['FULFILLMENT_SERVICE'], 
+                         fulfillment_status=self.settings['FULFILLMENT_STATUS']
+                    )
                 )
 
 
