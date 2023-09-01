@@ -28,6 +28,8 @@ class Customers(object):
         customer = {
             'first_name': first_name,
             'last_name': last_name,
+            'email': "notrealisatestsorry" + first_name + "@" + fake.free_email_domain(), # Where we could have an email
+            # 'phone': fake.phone_number(), # can be invalid
             'addresses': [
                 {
                     'address1': fake.street_address(),
@@ -41,7 +43,7 @@ class Customers(object):
                 }
             ],
         }
-
+        
         return customer
 
     # instance methods
